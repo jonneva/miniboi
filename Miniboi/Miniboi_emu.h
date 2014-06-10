@@ -4,10 +4,17 @@
 #include <SFML/Graphics.hpp>
 #include <stdint.h>
 #include <stdlib.h>
+#include "binary.h"
 
 #define EMUW    400
 #define EMUH    300
-#define EMUZ    2.f
+#define EMUZ    1.f
+
+// ARDUINO COMPATIBILITY
+typedef unsigned char byte;
+typedef unsigned char prog_char;
+typedef bool boolean;
+#define PI 3.14159265
 
 using namespace sf;
 
@@ -17,7 +24,10 @@ class Miniboi_emu {
 public:
     void start();
     void refresh(uint8_t *);
-    int pollFire();
+    void refresh_old(uint8_t *);
+    int pollA();
+    int pollB();
+    int pollC();
     int pollLeft();
     int pollRight();
     int pollUp();

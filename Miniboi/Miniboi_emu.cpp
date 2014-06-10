@@ -21,10 +21,24 @@ emuWindow.pollEvent(emuEvent);
 return 0;
 }
 
-int Miniboi_emu::pollFire()
+int Miniboi_emu::pollA()
 {
 emuWindow.pollEvent(emuEvent);
-    if(Keyboard::isKeyPressed(Keyboard::Key::Space)) return 1;
+    if(Keyboard::isKeyPressed(Keyboard::Key::A)) return 1;
+    return 0;
+}
+
+int Miniboi_emu::pollB()
+{
+emuWindow.pollEvent(emuEvent);
+    if(Keyboard::isKeyPressed(Keyboard::Key::S)) return 1;
+    return 0;
+}
+
+int Miniboi_emu::pollC()
+{
+emuWindow.pollEvent(emuEvent);
+    if(Keyboard::isKeyPressed(Keyboard::Key::C)) return 1;
     return 0;
 }
 
@@ -69,21 +83,10 @@ void Miniboi_emu::start()
     emuWindow.setView(emuScreen);
 }
 
-void Miniboi_emu::refresh(uint8_t * screen){
+void Miniboi_emu::refresh_old(uint8_t * screen){
     emuWindow.setView(emuScreen);
     emuWindow.clear(Color::White);
-    /*for (int y=0; y < 48; y++) {
-        for (int x=0; x < 84; x ++) {
-            if (screen[x/8+y*84] & (0x80 >>(x&7)))
-                {
-                    emuPixel1.setPosition(x,y);
-                    emuWindow.draw(emuPixel1);
-                } else {
-                    emuPixel0.setPosition(x,y);
-                    emuWindow.draw(emuPixel0);
-                }
-            }
-        }*/
+
     int x=0, y=0;
     for (uint16_t byteptr=0; byteptr < 504; byteptr++) {
         for (uint8_t bitptr=0; bitptr < 8; bitptr ++) {
@@ -98,6 +101,30 @@ void Miniboi_emu::refresh(uint8_t * screen){
             x++;
             if (x==84) { x = 0; y++;}
             }
+    }
+
+    emuWindow.display();
+    pollEsc();
+}
+
+void Miniboi_emu::refresh(uint8_t * screen){
+    emuWindow.setView(emuScreen);
+    emuWindow.clear(Color::White);
+
+    int x=0, y=0, temp;
+    for (uint16_t byteptr=0; byteptr < 504; byteptr++) {
+        for (int8_t bitptr=0; bitptr < 8; bitptr ++) {
+            if (screen[byteptr] & (0x80 >> (bitptr&7)))
+                {
+                    emuPixel1.setPosition(x,y+bitptr);
+                    emuWindow.draw(emuPixel1);
+                } else {
+                    emuPixel0.setPosition(x,y+bitptr);
+                    emuWindow.draw(emuPixel0);
+                }
+            }
+        x++;
+        if (x==84) { y += 8; x=0;}
     }
 
     emuWindow.display();

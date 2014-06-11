@@ -1,19 +1,101 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
-#include <string.h>
-#include <algorithm> // needed for min max
+
 #include "Miniboi.h"
 #include "Miniboi_emu.h"
+#include "Miniboi3D.h"
 
 Miniboi_emu EMU;
 
 using namespace sf;
 using namespace std;
+using namespace Miniboi3D;
 
 // START OF ARDUINO CODE
 
 Miniboi MB;
+vector<SolidPolygon3D> polys;
 
+
+    // Create a house (convex polyhedra)
+    // All faces must use anti-clockwise winding order
+void createPolygons() {
+        SolidPolygon3D poly;
+
+        // walls
+        poly = SolidPolygon3D(
+            Vector3D(-200, 0, -1000),
+            Vector3D(200, 0, -1000),
+            Vector3D(200, 250, -1000),
+            Vector3D(-200, 250, -1000));
+        poly.setColor(1);
+        polys.push_back(poly);
+        poly = SolidPolygon3D(
+            Vector3D(-200, 0, -1400),
+            Vector3D(-200, 250, -1400),
+            Vector3D(200, 250, -1400),
+            Vector3D(200, 0, -1400));
+        poly.setColor(1);
+        polys.push_back(poly);
+        poly = SolidPolygon3D(
+            Vector3D(-200, 0, -1400),
+            Vector3D(-200, 0, -1000),
+            Vector3D(-200, 250, -1000),
+            Vector3D(-200, 250, -1400));
+        poly.setColor(1);
+        polys.push_back(poly);
+        poly = SolidPolygon3D(
+            Vector3D(200, 0, -1000),
+            Vector3D(200, 0, -1400),
+            Vector3D(200, 250, -1400),
+            Vector3D(200, 250, -1000));
+        poly.setColor(1);
+        polys.push_back(poly);
+
+        // door and windows
+        poly = SolidPolygon3D(
+            Vector3D(0, 0, -1000),
+            Vector3D(75, 0, -1000),
+            Vector3D(75, 125, -1000),
+            Vector3D(0, 125, -1000));
+        poly.setColor(1);
+        polys.push_back(poly);
+        poly = SolidPolygon3D(
+            Vector3D(-150, 150, -1000),
+            Vector3D(-100, 150, -1000),
+            Vector3D(-100, 200, -1000),
+            Vector3D(-150, 200, -1000));
+        poly.setColor(1);
+        polys.push_back(poly);
+
+        // roof
+        poly = SolidPolygon3D(
+            Vector3D(-200, 250, -1000),
+            Vector3D(200, 250, -1000),
+            Vector3D(75, 400, -1200),
+            Vector3D(-75, 400, -1200));
+        poly.setColor(1);
+        polys.push_back(poly);
+        poly = SolidPolygon3D(
+            Vector3D(-200, 250, -1400),
+            Vector3D(-200, 250, -1000),
+            Vector3D(-75, 400, -1200));
+        poly.setColor(1);
+        polys.push_back(poly);
+        poly = SolidPolygon3D(
+            Vector3D(200, 250, -1400),
+            Vector3D(-200, 250, -1400),
+            Vector3D(-75, 400, -1200),
+            Vector3D(75, 400, -1200));
+        poly.setColor(1);
+        polys.push_back(poly);
+        poly = SolidPolygon3D(
+            Vector3D(200, 250, -1000),
+            Vector3D(200, 250, -1400),
+            Vector3D(75, 400, -1200));
+        poly.setColor(1);
+        polys.push_back(poly);
+    }
 
 void setup() {
     MB.begin();

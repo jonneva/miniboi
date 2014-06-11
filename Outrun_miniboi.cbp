@@ -45,8 +45,19 @@
 		<Unit filename="Graphics/sky2.cpp" />
 		<Unit filename="Miniboi/Miniboi.cpp" />
 		<Unit filename="Miniboi/Miniboi.h" />
+		<Unit filename="Miniboi/Miniboi3D.h" />
 		<Unit filename="Miniboi/Miniboi_emu.cpp" />
 		<Unit filename="Miniboi/Miniboi_emu.h" />
+		<Unit filename="Miniboi/Polygon3D.cpp" />
+		<Unit filename="Miniboi/Polygon3D.h" />
+		<Unit filename="Miniboi/Rectangle3D.cpp" />
+		<Unit filename="Miniboi/Rectangle3D.h" />
+		<Unit filename="Miniboi/Solidpolygon3D.h" />
+		<Unit filename="Miniboi/Transform3D.h" />
+		<Unit filename="Miniboi/Vector3D.cpp" />
+		<Unit filename="Miniboi/Vector3D.h" />
+		<Unit filename="Miniboi/ViewWindow.cpp" />
+		<Unit filename="Miniboi/ViewWindow.h" />
 		<Unit filename="Miniboi/binary.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

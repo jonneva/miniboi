@@ -1264,13 +1264,12 @@
 	<SFML/Graphics.hpp>
 	"wrapper.h"
 
-1402484154 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
+1402496310 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
 	<SFML/Graphics.hpp>
 	<stdio.h>
-	<string.h>
-	<algorithm>
 	"Miniboi.h"
 	"Miniboi_emu.h"
+	"Miniboi3D.h"
 
 1394844808 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Controllers/Controllers.h
 	"ButtonController.h"
@@ -1293,4 +1292,49 @@
 	"Miniboi_emu.h"
 
 1402430011 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/binary.h
+
+1402495565 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Vector3D.cpp
+	<limits>
+	<cmath>
+	<cassert>
+	<sstream>
+	<algorithm>
+	"Vector3D.h"
+	"Transform3D.h"
+
+1402495515 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Vector3D.h
+	<iostream>
+	<string>
+	<vector>
+	<cmath>
+	<limits>
+	"Miniboi.h"
+
+1402495426 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Transform3D.h
+	"Vector3D.h"
+
+1402495553 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Rectangle3D.cpp
+	"Rectangle3D.h"
+
+1402495410 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Rectangle3D.h
+	"Vector3D.h"
+	"Transform3D.h"
+
+1402496530 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi3D.h
+	"Transform3D.h"
+	"Vector3D.h"
+	"Rectangle3D.h"
+	"Solidpolygon3D.h"
+	"Polygon3D.h"
+	"ViewWindow.h"
+
+1402495851 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Solidpolygon3D.h
+	"Vector3D.h"
+	"Polygon3D.h"
+
+1402495961 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Polygon3D.h
+	"Vector3D.h"
+
+1402496504 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/ViewWindow.h
+	"Vector3D.h"
 

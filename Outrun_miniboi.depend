@@ -1264,7 +1264,7 @@
 	<SFML/Graphics.hpp>
 	"wrapper.h"
 
-1402496310 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
+1402522774 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	"Miniboi.h"
@@ -1278,7 +1278,7 @@
 	<stdint.h>
 	<stdlib.h>
 
-1402483926 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.cpp
+1402523023 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.cpp
 	"Miniboi.h"
 
 1402484190 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_emu.h
@@ -1337,4 +1337,14 @@
 
 1402496504 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/ViewWindow.h
 	"Vector3D.h"
+
+1402496524 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Polygon3D.cpp
+	"Vector3D.h"
+	"Polygon3D.h"
+	"Transform3D.h"
+	"ViewWindow.h"
+
+1402496435 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/ViewWindow.cpp
+	<cmath>
+	"ViewWindow.h"
 

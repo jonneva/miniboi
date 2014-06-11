@@ -109,6 +109,12 @@ void loop() {
     MB.draw_line(0,2,83,2,HATCH);
     MB.draw_line(0,47,83,47,HATCH);*/
     MB.draw_rect(random(0,83),random(0,47),random(0,83),random(0,47),random(0,3),random(0,3));
+    /*MB.draw_rect(10,0,5,6,HATCH,1);
+    MB.draw_rect(20,0,5,7,HATCH,1);
+    MB.draw_rect(30,0,5,8,HATCH,HATCH);
+    MB.draw_rect(40,0,5,9,HATCH,HATCH);
+    MB.draw_rect(50,0,5,10,HATCH,HATCH);
+    MB.draw_rect(60,0,5,11,HATCH,HATCH);*/
 }
 
 

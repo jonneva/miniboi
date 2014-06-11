@@ -9,6 +9,9 @@
 #define HATCH   2
 #define INVERT  3
 
+#define XMAX    83
+#define YMAX    47
+
 
 
 class Miniboi {

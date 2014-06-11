@@ -162,24 +162,23 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
         if (x&1) {
             // odd columns
             topmask = 0xFF >> (y0&7); // mask for top byte
-            topbits = 0xAA >> (y0&7); // hatch for top byte
             bottommask = 0xFF << (7-(y1&7)); // mask for bottom byte
-            if (y1&1) {
-                    bottombits = 0xAA << (7-(y1&7)); // mask for bottom byte
-                } else {
-                    bottombits = 0x55 << (7-(y1&7));
-                }
+
+            if (y0&1) topbits = 0x55 >> (y0&7); // hatch for top byte
+            else topbits = 0xAA >> (y0&7); // hatch for top byte
+            if (y1&1) bottombits = 0xAA << (7-(y1&7)); // mask for bottom byte
+            else bottombits = 0x55 << (7-(y1&7));
+
             hatchbit = 0xAA;
         } else {
             // even columns
             topmask = 0xFF >> (y0&7); // mask for top byte
-            topbits = 0x55 >> (y0&7); // hatch for top byte
             bottommask = 0xFF << (7-(y1&7)); // mask for bottom byte
-            if (y1&1) {
-                    bottombits = 0x55 << (7-(y1&7)); // mask for bottom byte
-                } else {
-                    bottombits = 0xAA << (7-(y1&7));
-                }
+            if (y0&1) topbits = 0xAA >> (y0&7); // hatch for top byte
+            else topbits = 0x55 >> (y0&7); // hatch for top byte
+            if (y1&1) bottombits = 0x55 << (7-(y1&7)); // mask for bottom byte
+            else bottombits = 0xAA << (7-(y1&7));
+
             hatchbit = 0x55;
         }
     } else {

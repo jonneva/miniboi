@@ -1264,7 +1264,7 @@
 	<SFML/Graphics.hpp>
 	"wrapper.h"
 
-1402433626 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
+1402445229 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	<string.h>
@@ -1275,20 +1275,20 @@
 1394844808 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Controllers/Controllers.h
 	"ButtonController.h"
 
-1402422669 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.h
+1402445163 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.h
 	<stdint.h>
 	<stdlib.h>
 
-1402421593 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.cpp
+1402445342 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.cpp
 	"Miniboi.h"
 
-1402432475 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_emu.h
+1402435535 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_emu.h
 	<SFML/Graphics.hpp>
 	<stdint.h>
 	<stdlib.h>
 	"binary.h"
 
-1402434152 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_emu.cpp
+1402438654 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_emu.cpp
 	<SFML/Graphics.hpp>
 	"Miniboi_emu.h"
 

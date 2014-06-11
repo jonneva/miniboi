@@ -7,6 +7,8 @@ using namespace sf;
 sf::Texture emuTexture;
 sf::Sprite emuSprite;
 sf::RectangleShape emuPixel0, emuPixel1;
+sf::Color color0(250, 250, 250); // background
+sf::Color color1(50, 50, 50); // foreground
 RenderWindow emuWindow{{EMUW, EMUH}, "Miniboi Emulator"};
 sf::View emuScreen(sf::FloatRect(0, 0, 84, 48));
 sf::Event emuEvent;
@@ -74,18 +76,18 @@ void Miniboi_emu::start()
 {
     emuWindow.setFramerateLimit(60);
     emuPixel0.setSize(sf::Vector2f(1,1));
-    emuPixel0.setFillColor(sf::Color::Blue);
+    emuPixel0.setFillColor(color0);
     emuPixel1.setSize(sf::Vector2f(1,1));
-    emuPixel1.setFillColor(sf::Color::Black);
+    emuPixel1.setFillColor(color1);
     emuScreen.zoom(EMUZ);
     emuScreen.setViewport(sf::FloatRect(0, 0, 1, 1));
-    emuWindow.clear(Color::White);
+    emuWindow.clear(color0);
     emuWindow.setView(emuScreen);
 }
 
 void Miniboi_emu::refresh_old(uint8_t * screen){
     emuWindow.setView(emuScreen);
-    emuWindow.clear(Color::White);
+    emuWindow.clear(color0);
 
     int x=0, y=0;
     for (uint16_t byteptr=0; byteptr < 504; byteptr++) {
@@ -109,7 +111,7 @@ void Miniboi_emu::refresh_old(uint8_t * screen){
 
 void Miniboi_emu::refresh(uint8_t * screen){
     emuWindow.setView(emuScreen);
-    emuWindow.clear(Color::White);
+    emuWindow.clear(color0);
 
     int x=0, y=0, temp;
     for (uint16_t byteptr=0; byteptr < 504; byteptr++) {
@@ -119,8 +121,8 @@ void Miniboi_emu::refresh(uint8_t * screen){
                     emuPixel1.setPosition(x,y+bitptr);
                     emuWindow.draw(emuPixel1);
                 } else {
-                    emuPixel0.setPosition(x,y+bitptr);
-                    emuWindow.draw(emuPixel0);
+                    //emuPixel0.setPosition(x,y+bitptr);
+                    //emuWindow.draw(emuPixel0);
                 }
             }
         x++;

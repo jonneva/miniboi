@@ -6,9 +6,9 @@
 #include <stdlib.h>
 #include "binary.h"
 
-#define EMUW    400
-#define EMUH    300
-#define EMUZ    1.f
+#define EMUW    800
+#define EMUH    600
+#define EMUZ    1.2f
 
 // ARDUINO COMPATIBILITY
 typedef unsigned char byte;

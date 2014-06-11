@@ -7,7 +7,8 @@
 #define WHITE   1
 #define BLACK   0
 #define HATCH   2
-#define INVERT  3
+#define HATCH2  3
+#define INVERT  4
 
 #define XMAX    83
 #define YMAX    47

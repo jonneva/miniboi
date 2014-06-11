@@ -7,6 +7,7 @@
 #define WHITE   1
 #define BLACK   0
 #define INVERT  2
+#define HATCH   3
 
 
 class Miniboi {

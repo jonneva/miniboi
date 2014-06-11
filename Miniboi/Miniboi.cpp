@@ -6,14 +6,24 @@ char Miniboi::begin() {
 } // end of begin
 
 void Miniboi::sp(uint8_t x, uint8_t y, char c) {
-    if (c) {buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7)); return;}
+    if (c==WHITE) {buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7)); return;}
+    if (c==HATCH) {
+        if ((x+y) & 1) {
+                // odd pixels on
+                buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7));
+                } else {
+                // even pixels off
+                buffer[(y >> 3) * 84 + x] &= ~(0x80 >> (y & 7));
+                }
+        return;
+        }
 	buffer[(y >> 3) * 84 + x] &= ~(0x80 >> (y & 7));
 }
 
 void Miniboi::set_pixel(uint8_t x, uint8_t y, char c) {
 	if (x >= 84 || y >= 48)
 		return;
-	if (c) {buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7)); return;}
+	if (c==WHITE) {buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7)); return;}
 	buffer[(y >> 3) * 84 + x] &= ~(0x80 >> (y & 7));
 }// end of set_pixel
 
@@ -99,14 +109,14 @@ void Miniboi::draw_row(uint8_t y, uint16_t x0, uint16_t x1, uint8_t c) {
 		} // swap the xs correct way round
 
 	if (x0 == x1)
-		set_pixel(x0,y,c);
+		sp(x0,y,c);
 	else {
 
 	hbit = 0x80 >> (y&7); //find the bit to be set in that byte
                           // remainder = number & ( divisor - 1 )
-    y >>= 3;              // divide y by 8 to get byte row
-    x0 = y + x0 ;         // x0 now points to first buffer byte
-    x1 = y + x1 ;         // x1 now points to last buffer byte
+
+    x0 = (y>>3)*84 + x0 ;         // x0 now points to first buffer byte
+    x1 = (y>>3)*84 + x1 ;         // x1 now points to last buffer byte
 
     // Drawing loops
 
@@ -122,13 +132,22 @@ void Miniboi::draw_row(uint8_t y, uint16_t x0, uint16_t x1, uint8_t c) {
 			while (x0 < x1)
 				buffer[x0++] ^= hbit;
 		}
+		else if (c == HATCH) {
+			while (x0 < x1)
+				if ((y+x0)&1) {
+                    // odd bits set
+                    buffer[x0++] |= hbit;
+				} else {
+                    // even bits turn off
+                    buffer[x0++] &= ~hbit;
+				}
+		}
 	}
 } // end of draw_row
 
 void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 
-	unsigned char topbits, bottombits;
-	int byte;
+	unsigned char topbits, bottombits, hatchbit,topmask,bottommask;
 
     if (y0 > y1) {
 			topbits = y0;
@@ -137,11 +156,28 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 		} // swap the ys correct way round
 
     if (y0 == y1)
-		set_pixel(x,y0,c); // draw pixel if length = 1
+		sp(x,y0,c); // draw pixel if length = 1
 
-    topbits = 0xff >> (y0&7); // mask for top byte
-    bottombits = ~(0xff >> (y1&7)); // mask for bottom byte
-
+    if (c == HATCH) {
+        if (x&1) {
+            // odd columns
+            topmask = 0xFF >> (y0&7); // mask for top byte
+            topbits = 0xAA >> (y0&7); // hatch for top byte
+            bottommask = 0xFF << (7-(y1&7)); // mask for bottom byte
+            bottombits = 0xAA << (7-(y1&7)); // mask for bottom byte
+            hatchbit = 0xAA;
+        } else {
+            // even columns
+            topmask = 0xFF >> (y0&7); // mask for top byte
+            topbits = 0x55 >> (y0&7); // hatch for top byte
+            bottommask = 0xFF << (7-(y1&7)); // mask for bottom byte
+            bottombits = 0x55 << (7-(y1&7)); // mask for bottom byte
+            hatchbit = 0x55;
+        }
+    } else {
+        topbits = 0xff >> (y0&7); // mask for top byte
+        bottombits = ~(0xff >> (y1&7)); // mask for bottom byte
+    }
     y0 = (y0>>3)*84 + x; // y0 now points to topmost byte
     y1 = (y1>>3)*84 + x; // y1 now points to last bottom byte
 
@@ -151,7 +187,7 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
             buffer[y0] |= topbits; // topmost byte
 			while ( y0 < y1) {
                 y0 += 84;           // increment, if several bytes
-				buffer[y0] |= 0xFF; // its a whole byte
+				buffer[y0] = 0xFF; // its a whole byte
 			}
 			buffer[y0] |= bottombits; // last byte
 		}
@@ -159,7 +195,7 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
             buffer[y0] &= ~topbits; // topmost byte
             while ( y0 < y1) {
                 y0 += 84;           // increment, if several bytes
-				buffer[y0] &= 0x00; // its a whole byte
+				buffer[y0] = 0x00; // its a whole byte
 			}
 			buffer[y0] &= ~bottombits; // last byte
 		}
@@ -170,5 +206,15 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 				buffer[y0] ^= 0xFF; // its a whole byte
 			}
 			buffer[y0] ^= bottombits; // last byte
+		}
+        else if (c == HATCH) {
+            buffer[y0] &= ~topmask; // switch off affected bytes
+            buffer[y0] |= topbits; // topmost byte
+            while ( y0 < y1) {
+                y0 += 84;           // increment, if several bytes
+				buffer[y0] = hatchbit; // its a whole byte
+			}
+			buffer[y0] &= bottommask; // switch off affected bytes
+			buffer[y0] |= bottombits; // last byte
 		}
 }

@@ -1264,7 +1264,7 @@
 	<SFML/Graphics.hpp>
 	"wrapper.h"
 
-1402478207 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
+1402482735 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	<string.h>
@@ -1275,11 +1275,11 @@
 1394844808 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Controllers/Controllers.h
 	"ButtonController.h"
 
-1402445163 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.h
+1402479875 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.h
 	<stdint.h>
 	<stdlib.h>
 
-1402478129 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.cpp
+1402482996 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.cpp
 	"Miniboi.h"
 
 1402435535 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_emu.h

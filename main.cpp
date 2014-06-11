@@ -108,14 +108,14 @@ void loop() {
     MB.draw_line(0,1,83,1,HATCH);
     MB.draw_line(0,2,83,2,HATCH);
     MB.draw_line(0,47,83,47,HATCH);*/
-    //MB.draw_rect(random(0,83),random(0,47),random(5,40),random(5,20),random(0,4),random(0,4));
-    MB.draw_rect(0,0,XMAX,YMAX,1,1);
+    MB.draw_rect(random(0,83),random(0,47),random(5,60),random(5,40),random(0,6),random(0,6));
+    /*MB.draw_rect(0,0,XMAX,YMAX,1,1);
     MB.draw_rect(10,0,6,20,-1,HATCH2);
-    MB.draw_rect(20,1,6,16,-1,HATCH2);
+    MB.draw_rect(20,1,6,16,-1,HATCH);
     MB.draw_rect(30,2,6,18,-1,HATCH2);
-    MB.draw_rect(40,3,6,29,-1,HATCH2);
+    MB.draw_rect(40,3,6,29,-1,HATCH3);
     MB.draw_rect(50,4,6,30,-1,HATCH2);
-    MB.draw_rect(60,5,6,41,-1,HATCH2);
+    MB.draw_rect(60,5,6,41,-1,HATCH2);*/
 }
 
 

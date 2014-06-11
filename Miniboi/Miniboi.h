@@ -8,7 +8,15 @@
 #define BLACK   0
 #define HATCH   2
 #define HATCH2  3
-#define INVERT  4
+#define HATCH3  4
+#define INVERT  5
+
+#define HATCH1EVEN  0xAA
+#define HATCH1ODD   0x55
+#define HATCH2EVEN  0x88
+#define HATCH2ODD   0x22
+#define HATCH3EVEN  0xDD
+#define HATCH3ODD   0x77
 
 #define XMAX    83
 #define YMAX    47

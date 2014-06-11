@@ -218,3 +218,17 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 			buffer[y0] |= bottombits; // last byte
 		}
 }
+
+void Miniboi::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, char fc) {
+
+	if (fc != -1) {
+		for (unsigned char i = y0; i < y0+h; i++)
+			draw_row(i,x0,x0+w,fc);
+	}
+	draw_line(x0,y0,x0+w,y0,c);
+	draw_line(x0,y0,x0,y0+h,c);
+	draw_line(x0+w,y0,x0+w,y0+h,c);
+	draw_line(x0,y0+h,x0+w,y0+h,c);
+} // end of draw_rect
+
+

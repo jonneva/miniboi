@@ -13,6 +13,13 @@ RenderWindow emuWindow{{EMUW, EMUH}, "Miniboi Emulator"};
 sf::View emuScreen(sf::FloatRect(0, 0, 84, 48));
 sf::Event emuEvent;
 
+int random(int a, int b) {
+    int r; //Arduino random(a,b) EXCLUDES b !!!
+    if (b < 1) return 0;
+    if (a < 0) return 0;
+    r = rand() % (b - a) + a ;
+    return  r;
+}
 
 int Miniboi_emu::pollEsc() {
 emuWindow.pollEvent(emuEvent);
@@ -113,7 +120,7 @@ void Miniboi_emu::refresh(uint8_t * screen){
     emuWindow.setView(emuScreen);
     emuWindow.clear(color0);
 
-    int x=0, y=0, temp;
+    int x=0, y=0;
     for (uint16_t byteptr=0; byteptr < 504; byteptr++) {
         for (int8_t bitptr=0; bitptr < 8; bitptr ++) {
             if (screen[byteptr] & (0x80 >> (bitptr&7)))

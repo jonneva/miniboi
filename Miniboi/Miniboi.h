@@ -6,8 +6,9 @@
 
 #define WHITE   1
 #define BLACK   0
-#define INVERT  2
-#define HATCH   3
+#define HATCH   2
+#define INVERT  3
+
 
 
 class Miniboi {
@@ -19,6 +20,7 @@ public:
 	void draw_line(uint8_t,uint8_t, uint8_t, uint8_t, char);
     void draw_column(uint8_t, uint16_t, uint16_t, uint8_t);
     void draw_row(uint8_t, uint16_t, uint16_t, uint8_t);
+    void draw_rect(uint8_t,uint8_t,uint8_t,uint8_t,char,char);
 
 private:
     void sp(uint8_t,uint8_t,char);

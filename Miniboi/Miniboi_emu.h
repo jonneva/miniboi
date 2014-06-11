@@ -15,6 +15,7 @@ typedef unsigned char byte;
 typedef unsigned char prog_char;
 typedef bool boolean;
 #define PI 3.14159265
+extern int random(int,int);
 
 using namespace sf;
 

@@ -20,12 +20,13 @@ void setup() {
 }
 
 void loop() {
-    MB.draw_line(0,0,83,47,HATCH);
+    /*MB.draw_line(0,0,83,47,HATCH);
     MB.draw_line(0,0,0,47,HATCH);
     MB.draw_line(0,0,83,0,HATCH);
     MB.draw_line(0,1,83,1,HATCH);
     MB.draw_line(0,2,83,2,HATCH);
-    MB.draw_line(0,47,83,47,HATCH);
+    MB.draw_line(0,47,83,47,HATCH);*/
+    MB.draw_rect(random(0,83),random(0,47),random(0,83),random(0,47),random(0,3),random(0,3));
 }
 
 

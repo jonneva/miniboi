@@ -22,6 +22,8 @@ void setup() {
 void loop() {
     MB.draw_line(0,0,83,47,1);
     MB.draw_line(0,0,0,47,1);
+    MB.draw_line(0,0,83,0,1);
+    MB.draw_line(0,2,83,2,1);
 }
 
 

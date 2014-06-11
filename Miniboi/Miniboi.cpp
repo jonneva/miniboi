@@ -89,81 +89,86 @@ void Miniboi::draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, char c) 
 	}
 }
 
-void Miniboi::draw_row(uint8_t line, uint16_t x0, uint16_t x1, uint8_t c) {
-	uint8_t lbit, rbit;
+void Miniboi::draw_row(uint8_t y, uint16_t x0, uint16_t x1, uint8_t c) {
+	uint8_t hbit;
+
+    if (x0 > x1) {
+			hbit = x0;
+			x0 = x1;
+			x1 = hbit;
+		} // swap the xs correct way round
 
 	if (x0 == x1)
-		set_pixel(x0,line,c);
+		set_pixel(x0,y,c);
 	else {
-		if (x0 > x1) {
-			lbit = x0;
-			x0 = x1;
-			x1 = lbit;
-		}
-		lbit = 0xff >> (x0&7);
-		x0 = x0/8 + 84*line;
-		rbit = ~(0xff >> (x1&7));
-		x1 = x1/8 + 84*line;
-		if (x0 == x1) {
-			lbit = lbit & rbit;
-			rbit = 0;
-		}
-		if (c == WHITE) {
-			buffer[x0++] |= lbit;
+
+	hbit = 0x80 >> (y&7); //find the bit to be set in that byte
+                          // remainder = number & ( divisor - 1 )
+    y >>= 3;              // divide y by 8 to get byte row
+    x0 = y + x0 ;         // x0 now points to first buffer byte
+    x1 = y + x1 ;         // x1 now points to last buffer byte
+
+    // Drawing loops
+
+    if (c == WHITE) {
 			while (x0 < x1)
-				buffer[x0++] = 0xff;
-			buffer[x0] |= rbit;
+				buffer[x0++] |= hbit;
 		}
 		else if (c == BLACK) {
-			buffer[x0++] &= ~lbit;
 			while (x0 < x1)
-				buffer[x0++] = 0;
-			buffer[x0] &= ~rbit;
+				buffer[x0++] &= ~hbit;
 		}
 		else if (c == INVERT) {
-			buffer[x0++] ^= lbit;
 			while (x0 < x1)
-				buffer[x0++] ^= 0xff;
-			buffer[x0] ^= rbit;
+				buffer[x0++] ^= hbit;
 		}
 	}
 } // end of draw_row
 
-void Miniboi::draw_column(uint8_t row, uint16_t y0, uint16_t y1, uint8_t c) {
+void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 
-	unsigned char bit;
+	unsigned char topbits, bottombits;
 	int byte;
 
-	if (y0 == y1)
-		set_pixel(row,y0,c);
-	else {
-		if (y1 < y0) {
-			bit = y0;
+    if (y0 > y1) {
+			topbits = y0;
 			y0 = y1;
-			y1 = bit;
-		}
-		bit = 0x80 >> (row&7);
-		byte = row/8 + y0*48;
-		if (c == WHITE) {
-			while ( y0 <= y1) {
-				buffer[byte] |= bit;
-				byte += 84;
-				y0++;
+			y1 = topbits;
+		} // swap the ys correct way round
+
+    if (y0 == y1)
+		set_pixel(x,y0,c); // draw pixel if length = 1
+
+    topbits = 0xff >> (y0&7); // mask for top byte
+    bottombits = ~(0xff >> (y1&7)); // mask for bottom byte
+
+    y0 = (y0>>3)*84 + x; // y0 now points to topmost byte
+    y1 = (y1>>3)*84 + x; // y1 now points to last bottom byte
+
+    // Drawing loop
+
+    if (c == WHITE) {
+            buffer[y0] |= topbits; // topmost byte
+			while ( y0 < y1) {
+                y0 += 84;           // increment, if several bytes
+				buffer[y0] |= 0xFF; // its a whole byte
 			}
+			buffer[y0] |= bottombits; // last byte
 		}
 		else if (c == BLACK) {
-			while ( y0 <= y1) {
-				buffer[byte] &= ~bit;
-				byte += 84;
-				y0++;
+            buffer[y0] &= ~topbits; // topmost byte
+            while ( y0 < y1) {
+                y0 += 84;           // increment, if several bytes
+				buffer[y0] &= 0x00; // its a whole byte
 			}
+			buffer[y0] &= ~bottombits; // last byte
 		}
 		else if (c == INVERT) {
-			while ( y0 <= y1) {
-				buffer[byte] ^= bit;
-				byte += 84;
-				y0++;
+            buffer[y0] ^= topbits; // topmost byte
+            while ( y0 < y1) {
+                y0 += 84;           // increment, if several bytes
+				buffer[y0] ^= 0xFF; // its a whole byte
 			}
+			buffer[y0] ^= bottombits; // last byte
 		}
-	}
 }

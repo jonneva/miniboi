@@ -1,8 +1,8 @@
-#include "solidpolygonrenderer.h"
-#include "solidpolygon3d.h"
-#include "primitives.h"
+#include "Solidpolygonrenderer.h"
+#include "Solidpolygon3D.h"
+#include "Primitives.h"
 
-namespace Quokka3D
+namespace Miniboi3D
 {
     /*
     Draws the current polygon. At this point, the current
@@ -11,12 +11,12 @@ namespace Quokka3D
     */
     void SolidPolygonRenderer::drawCurrentPolygon()
     {
-        // draw the scans        
+        // draw the scans
         int y = m_scanConverter.getTopBoundary();
-        while (y <= m_scanConverter.getBottomBoundary()) 
+        while (y <= m_scanConverter.getBottomBoundary())
         {
             ScanConverter::Scan scan = m_scanConverter[y];
-           
+
             if (scan.isValid())
             {
                 // TODO: sort out this horrible cast
@@ -27,4 +27,4 @@ namespace Quokka3D
         }
 
     }
-} // Quokka3D
+}

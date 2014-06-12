@@ -10,6 +10,8 @@
 #define EMUH    600
 #define EMUZ    1.2f
 
+extern void plot_pixel(int,int,int);
+
 // ARDUINO COMPATIBILITY
 typedef unsigned char byte;
 typedef unsigned char prog_char;

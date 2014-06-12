@@ -1,6 +1,8 @@
 #include <limits>
 #include "Primitives.h"
 #include <stdlib.h>     /* abs */
+#include "Miniboi.h"
+#include "Miniboi_emu.h"
 
 
 namespace Miniboi3D
@@ -40,6 +42,7 @@ namespace Miniboi3D
                 }
                 px += sdx;
                 //plot_pixel(px, py, color);
+
             }
         }
         else /* the line is more vertical than horizontal */
@@ -54,6 +57,7 @@ namespace Miniboi3D
                 }
                 py += sdy;
                 //plot_pixel(px, py, color);
+
             }
         }
     }

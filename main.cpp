@@ -103,10 +103,27 @@ void createPolygons() {
         polys.push_back(poly);
     }
 
+void plot_pixel(int px, int py, int color) {
+        MB.set_pixel(px,py,color);
+}
+
+void render()
+    {
+        polygonRenderer->startFrame();
+
+        for (int i=0; i!=polys.size(); ++i)
+        {
+            polygonRenderer->draw(&polys[i]);
+        }
+
+    }
+
+
+
 void setup() {
     MB.begin();
     createPolygons();
-    //polygonRenderer = new SolidPolygonRenderer(camera, view); //remember to delete
+    polygonRenderer = new SolidPolygonRenderer(camera, view); //remember to delete
 }
 
 void loop() {
@@ -125,6 +142,8 @@ void loop() {
     MB.draw_rect(50,4,6,30,-1,HATCH2);
     MB.draw_rect(60,5,6,41,-1,HATCH2);*/
     MB.draw_rect(10,0,6,20,-1,HATCH2);
+    render();
+    polygonRenderer->resetCounters();
 
 }
 

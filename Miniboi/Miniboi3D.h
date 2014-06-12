@@ -7,5 +7,6 @@
 #include "Solidpolygon3D.h"
 #include "Polygon3D.h"
 #include "ViewWindow.h"
+#include "Polygonrenderer.h"
 
 #endif // MINIBOI3D_H

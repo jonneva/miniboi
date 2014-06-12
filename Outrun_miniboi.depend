@@ -1264,7 +1264,7 @@
 	<SFML/Graphics.hpp>
 	"wrapper.h"
 
-1402527833 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
+1402531146 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	"Miniboi.h"
@@ -1320,13 +1320,14 @@
 	"Vector3D.h"
 	"Transform3D.h"
 
-1402496530 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi3D.h
+1402530680 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi3D.h
 	"Transform3D.h"
 	"Vector3D.h"
 	"Rectangle3D.h"
 	"Solidpolygon3D.h"
 	"Polygon3D.h"
 	"ViewWindow.h"
+	"Polygonrenderer.h"
 
 1402495851 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Solidpolygon3D.h
 	"Vector3D.h"
@@ -1347,4 +1348,33 @@
 1402496435 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/ViewWindow.cpp
 	<cmath>
 	"ViewWindow.h"
+
+1402530799 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Polygonrenderer.h
+	"Vector3D.h"
+	"Transform3D.h"
+	"Polygon3D.h"
+	"Scanconverter.h"
+	"ViewWindow.h"
+	"Primitives.h"
+
+1402531399 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Scanconverter.h
+	<vector>
+	<limits>
+	"ViewWindow.h"
+	"Vector3D.h"
+	"Polygon3D.h"
+
+1402531065 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Primitives.h
+
+1402530730 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Polygonrenderer.cpp
+	"Polygonrenderer.h"
+
+1402531463 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Primitives.cpp
+	<limits>
+	"Primitives.h"
+	<stdlib.h>
+
+1402531502 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Scanconverter.cpp
+	<algorithm>
+	"Scanconverter.h"
 

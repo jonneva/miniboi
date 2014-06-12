@@ -14,7 +14,13 @@ using namespace Miniboi3D;
 // START OF ARDUINO CODE
 
 Miniboi MB;
+
+float x = 0.0f, y = 100.0f, z = -500.0f;
+
 vector<SolidPolygon3D> polys;
+ViewWindow view(0, 0, XMAX, YMAX, DegToRad(75));
+Transform3D camera(x, y, z);
+PolygonRenderer* polygonRenderer ;
 
 
     // Create a house (convex polyhedra)
@@ -99,6 +105,8 @@ void createPolygons() {
 
 void setup() {
     MB.begin();
+    createPolygons();
+    //polygonRenderer = new SolidPolygonRenderer(camera, view); //remember to delete
 }
 
 void loop() {
@@ -108,7 +116,7 @@ void loop() {
     MB.draw_line(0,1,83,1,HATCH);
     MB.draw_line(0,2,83,2,HATCH);
     MB.draw_line(0,47,83,47,HATCH);*/
-    MB.draw_rect(random(0,83),random(0,47),random(5,60),random(5,40),random(0,6),random(0,6));
+    //MB.draw_rect(random(0,83),random(0,47),random(5,60),random(5,40),random(0,2),random(0,6));
     /*MB.draw_rect(0,0,XMAX,YMAX,1,1);
     MB.draw_rect(10,0,6,20,-1,HATCH2);
     MB.draw_rect(20,1,6,16,-1,HATCH);
@@ -116,6 +124,8 @@ void loop() {
     MB.draw_rect(40,3,6,29,-1,HATCH3);
     MB.draw_rect(50,4,6,30,-1,HATCH2);
     MB.draw_rect(60,5,6,41,-1,HATCH2);*/
+    MB.draw_rect(10,0,6,20,-1,HATCH2);
+
 }
 
 

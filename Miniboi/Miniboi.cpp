@@ -231,7 +231,7 @@ void Miniboi::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, ch
 	draw_line(x0,y0+h,x0+w,y0+h,c);
 } // end of draw_rect
 
-void Miniboi::draw_poly(uint8_t c, uint8_t n, point2D *pnts){
+void Miniboi::draw_poly(uint8_t n, point2D *pnts, uint8_t c, uint8_t fc){
 // this routine is based on walking the polygon
 // first from left to right, then right to left and
 // storing the y's of the edges along the way into two tables
@@ -248,7 +248,7 @@ void Miniboi::draw_poly(uint8_t c, uint8_t n, point2D *pnts){
 
     if (n < 3) return; // not a polygon !
 
-    xmax = xmin = pnts[0].y; // initialize to point 0 of polygon
+    xmax = xmin = pnts[0].x; // initialize to point 0 of polygon
 
     // FIND EXTREMES
     for (i = 1; i < n; i++)   // iterate through points of polygon
@@ -278,7 +278,7 @@ void Miniboi::draw_poly(uint8_t c, uint8_t n, point2D *pnts){
     if (p2 >= n) p2 = 0;  // if p2 > number of points, wrap to p0
 
     do {
-        walkEdge(edgeTable1, &pnts[p1], &pnts[p2]);
+        walkEdge(&edgeTable1[0], &pnts[p1], &pnts[p2]);
         // then, ready for walking the next edge
         p1 = p2;        // last right point becomes new left point
         p2 = p2 + 1;    // next point please !
@@ -292,7 +292,7 @@ void Miniboi::draw_poly(uint8_t c, uint8_t n, point2D *pnts){
     if (p2 >= n) p2 = 0;  // if p2 > number of points, wrap to p0
 
     do {
-        walkEdge(edgeTable1, &pnts[p1], &pnts[p2]);
+        walkEdge(&edgeTable2[0], &pnts[p1], &pnts[p2]);
         // then, ready for walking the next edge
         p1 = p2;        // last right point becomes new left point
         p2 = p2 + 1;    // next point please !
@@ -303,7 +303,7 @@ void Miniboi::draw_poly(uint8_t c, uint8_t n, point2D *pnts){
     do
     {
         // x = location to draw AND index to edge table
-        draw_column(x1, edgeTable1[x1], edgeTable2[x1],c);
+        draw_column(x1, edgeTable1[x1], edgeTable2[x1], fc);
         x1++;
     } while (x1 < x2);
 };
@@ -355,7 +355,7 @@ void Miniboi::walkEdge(uint8_t *edgeTable, point2D *p1, point2D *p2)
     dy = mbDiv((p2->y - p1->y), int2mb(dx)); // y increment for walk
 
     do {
-        edgeTable[x1] = y;   // store current edge y at index x in table
+        edgeTable[x1] = mb2int(y);   // store current edge y at index x in table
         y += dy;        // increment y by defined step
         x1++;           // step rightward
     } while(x1 < x2);  // until rightmost point of edge is reached

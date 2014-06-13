@@ -41,7 +41,7 @@ public:
     void draw_column(uint8_t, uint16_t, uint16_t, uint8_t);
     void draw_row(uint8_t, uint16_t, uint16_t, uint8_t);
     void draw_rect(uint8_t,uint8_t,uint8_t,uint8_t,char,char);
-    void draw_poly(uint8_t, uint8_t, point2D*);
+    void draw_poly(uint8_t, point2D*, uint8_t, uint8_t);
 
 private:
     void sp(uint8_t,uint8_t,char);

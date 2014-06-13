@@ -21,6 +21,9 @@ vector<SolidPolygon3D> polys;
 ViewWindow view(0, 0, XMAX, YMAX, DegToRad(75));
 Transform3D camera(x, y, z);
 PolygonRenderer* polygonRenderer ;
+point2D quad[4];
+#define PW  30
+#define PH  30
 
 
     // Create a house (convex polyhedra)
@@ -124,6 +127,18 @@ void setup() {
     MB.begin();
     createPolygons();
     polygonRenderer = new SolidPolygonRenderer(camera, view); //remember to delete
+
+    quad[0].x = int2mb(0);
+    quad[0].y = int2mb(0);
+
+    quad[1].x = int2mb(PW);
+    quad[1].y = int2mb(0);
+
+    quad[2].x = int2mb(PW+5);
+    quad[2].y = int2mb(PH);
+
+    quad[3].x = int2mb(5);
+    quad[3].y = int2mb(PH);
 }
 
 void loop() {
@@ -133,7 +148,7 @@ void loop() {
     MB.draw_line(0,1,83,1,HATCH);
     MB.draw_line(0,2,83,2,HATCH);
     MB.draw_line(0,47,83,47,HATCH);*/
-    MB.draw_rect(random(0,83),random(0,47),random(5,60),random(5,40),random(0,2),random(0,6));
+    //MB.draw_rect(random(0,83),random(0,47),random(5,60),random(5,40),random(0,2),random(0,6));
     /*MB.draw_rect(0,0,XMAX,YMAX,1,1);
     MB.draw_rect(10,0,6,20,-1,HATCH2);
     MB.draw_rect(20,1,6,16,-1,HATCH);
@@ -144,7 +159,7 @@ void loop() {
     //MB.draw_rect(10,0,6,20,-1,HATCH2);
     //render();
     //polygonRenderer->resetCounters();
-
+    MB.draw_poly(4,&quad[0],0,1);
 }
 
 

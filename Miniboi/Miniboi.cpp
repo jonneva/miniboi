@@ -246,15 +246,14 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 			buffer[y1] ^= bottombits; // last byte
 		}
         else if (hatchbit) {
-            //buffer[y0] &= ~topbits; // switch off affected bytes
-
+            buffer[y0] &= ~topbits; // switch off affected bytes
             buffer[y0] |= hatchbit & topbits; // topmost byte
             y0 += 84;           // increment, if several bytes
             while ( y0 < y1) {
 				buffer[y0] = hatchbit; // its a whole byte
 				y0 += 84;           // increment, if several bytes
 			}
-			//buffer[y1] &= ~bottombits; // switch off affected bytes
+			buffer[y1] &= ~bottombits; // switch off affected bytes
 			buffer[y1] |= hatchbit & bottombits; // last byte
 		}
 }

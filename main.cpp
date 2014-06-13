@@ -168,7 +168,7 @@ void loop() {
     }*/
     MB.fill(1);
     //MB.draw_poly(3,&quad[0],random(1,2),random(0,6));
-    MB.draw_poly(3,&quad[0],0,HATCH);
+    MB.draw_poly(3,&quad[0],0,0);
     //MB.draw_poly(3,&quad[0],1,1);
   if (EMU.pollB())
   {

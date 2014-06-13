@@ -29,14 +29,11 @@ typedef struct
     mb14 x, y;
 } point2D;
 
-typedef struct
-{
-    mb14 y;
-} edgeP;
-
 class Miniboi {
 public:
-    uint8_t buffer[504];
+    uint8_t buffer[504]; // Teh screen buffer
+    uint8_t edgeTable1[84]; // edge tables for polygon filling
+    uint8_t edgeTable2[84]; // ToDo: make optional if not needed
 	char begin();
 	void end();
 	void set_pixel(uint8_t,uint8_t,char);
@@ -48,7 +45,9 @@ public:
 
 private:
     void sp(uint8_t,uint8_t,char);
-    int round2scanline(mb14);
+    int  round2Scanline(mb14);
+    void spanColumn(uint8_t, uint8_t, mb14, mb14);
+    void walkEdge(uint8_t *, point2D *, point2D *);
 };
 
 #endif

@@ -232,7 +232,88 @@ void Miniboi::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, ch
 } // end of draw_rect
 
 void Miniboi::draw_poly(uint8_t c, uint8_t n, point2D *pnts){
+// this routine is based on walking the polygon
+// first from left to right, then right to left and
+// storing the y's of the edges along the way into two tables
+// the tables are then used to draw columns that fill the polygon
+// Based on article by Robert C. Pendleton at
+// http://www.gameprogrammer.com/5-poly.html but modified by
+// me to use with Arduino and Nokia 5110 LCD & minimize ram use.
 
+    mb14 xmax, xmin; // extremes in 18.14 fixed point accuracy
+    uint8_t x1, x2;
+    uint8_t xminPoint = 0, xmaxPoint = 0; // extremes
+    uint8_t p1, p2;
+    uint8_t i;
+
+    if (n < 3) return; // not a polygon !
+
+    xmax = xmin = pnts[0].y; // initialize to point 0 of polygon
+
+    // FIND EXTREMES
+    for (i = 1; i < n; i++)   // iterate through points of polygon
+    {
+        if (pnts[i].x > xmax)   // if current point is > current xmax
+        {
+            xmax = pnts[i].x;   // new xmax is at current point
+            xmaxPoint = i;      // store this information
+        }
+
+        if (pnts[i].x < xmin)   // if current point is < current xmin
+        {
+            xmin = pnts[i].x;   // new xmin is at current point
+            xminPoint = i;      // store this information
+        }
+    }
+
+    // ROUND THE FOUND EXTREMES TO SCANLINES
+    x1 = (uint8_t)round2Scanline(xmin);
+    x2 = (uint8_t)round2Scanline(xmax);
+
+    if (x1 == x2) return; // polygon is 100% vertical = DO NOT DRAW !
+
+    // START WALKING LEFT TO RIGHT
+    p1 = xminPoint;     // begins here
+    p2 = xminPoint + 1; // towards next point
+    if (p2 >= n) p2 = 0;  // if p2 > number of points, wrap to 0
+
+
+    do
+    {
+        edge(table1, &pnts[pnt1], &pnts[pnt2]);
+
+        pnt1 = pnt2;
+        pnt2 = pnt2 + 1;
+        if (pnt2 >= n)
+        {
+            pnt2 = 0;
+        }
+    } while (pnt1 != imaxy);
+
+    pnt1 = imaxy;
+    pnt2 = imaxy + 1;
+    if (pnt2 >= n)
+    {
+        pnt2 = 0;
+    }
+
+    do
+    {
+        edge(table2, &pnts[pnt1], &pnts[pnt2]);
+
+        pnt1 = pnt2;
+        pnt2 = pnt2 + 1;
+        if (pnt2 >= n)
+        {
+            pnt2 = 0;
+        }
+    } while (pnt1 != iminy);
+
+    do
+    {
+        span(c, iy1, &table1[iy1], &table2[iy1]);
+        iy1++;
+    } while (iy1 < iy2);
 };
 
 // PRIVATE
@@ -253,32 +334,50 @@ void Miniboi::sp(uint8_t x, uint8_t y, char c) {
 }
 
 // find the closest scanline, include top&left, discard bottom&right
-int round2scanline (mb14 n) {
+// return an integer value
+int Miniboi::round2Scanline (mb14 n) {
     if (mbFract(n) == mbHalf) n++;
     return mb2int(n + mbHalf);
 };
 
-void span(uint8_t c, int8_t y, edgeP *p1, edgeP *p2)
+// span the column at x given two y edge points
+void Miniboi::spanColumn(uint8_t c, uint8_t x, mb14 p1, mb14 p2)
 {
-    int idx, ix1, ix2;
+    int dy, y1, y2;
 
-    if (p2->y < pt1->y)
-    {
-        exchange(edgeRec *, pt1, pt2);
-    }
+    if (p2 < p1) swapWT(mb14 , p1, p2); // make sure p1 is left
 
-    ix1 = adjust(pt1->x);
-    ix2 = adjust(pt2->x);
-    idx = ix2 - ix1;
+    y1 = round2Scanline(p1); // round to closest scanline
+    y2 = round2Scanline(p2); // the return is an integer
+    dy = y2 - y1;            // height of span
+    if (dy == 0) return;    // avoid divide by zero
 
-    if (idx == 0)
-    {
-        return;
-    }
+    do { draw_column(x,y1,y2,c); y1++; } while (y1 < y2);
+}
 
-    do
-    {
-        //fb[y][ix1] = c; // WRITE TO BUFFER !
-        ix1++;
-    } while (ix1 < ix2);
+// walk edge horizontally, storing edge y's along the way
+void Miniboi::walkEdge(uint8_t *edgeTable, point2D *p1, point2D *p2)
+{
+    mb14 y, dy;
+    int dx, x1, x2;
+
+    // make sure p1 of edge is leftmost
+    if (p2->x < p1->x) swapWT(point2D *, p1, p2);
+
+    x1 = round2Scanline(p1->x);
+    x2 = round2Scanline(p2->x);
+    dx = x2 - x1;
+
+    if (dx == 0) return; // avoid divide by zero
+
+    dx = max(2, dx - 1); // top left included, bottom right excluded
+
+    y = p1->y;  // starting y for walk
+    dy = mbDiv((p2->y - p1->y), int2mb(dx)); // y increment for walk
+
+    do {
+        edgeTable[x] = y;   // store current edge y at index x in table
+        y += dy;        // increment y by defined step
+        x1++;           // step rightward
+    } while(x1 < x2);  // until rightmost point of edge is reached
 }

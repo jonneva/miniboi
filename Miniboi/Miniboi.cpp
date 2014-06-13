@@ -16,12 +16,15 @@ char Miniboi::begin() {
 	return 1;
 } // end of begin
 
+unsigned long Miniboi::millis() {
+    return myClock.getElapsedTime().asMilliseconds();
+};
+
 void Miniboi::delay(unsigned int x) {
-	//unsigned long time = millis() + x;
-	EMU.refresh(&buffer[0]);
-	//while(millis() < time) {
-    //    if (pollEvent() == -1) break;
-	//}
+	unsigned long time = millis() + x;
+	while(millis() < time) {
+        	EMU.refresh(&buffer[0]);
+	}
 } // end of delay
 
 void Miniboi::fill(uint8_t color) {
@@ -204,10 +207,16 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
     y0 = (y0>>3)*84 + x; // y0 now points to topmost byte
     y1 = (y1>>3)*84 + x; // y1 now points to last bottom byte
 
+    if (y0==y1) {
+        if (topbits && bottombits) {
+            topbits &= bottombits;
+            if (topbits) bottombits = topbits;
+        }
+    } // same byte !!
     // Drawing loop
 
     if (c == WHITE) {
-            if (y0==y1) topbits &= bottombits; // same byte !!
+
             buffer[y0] |= topbits; // topmost byte
             y0 += 84;           // increment, if several bytes
 			while ( y0 < y1) {
@@ -217,7 +226,7 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 			buffer[y1] |= bottombits; // last byte
 		}
 		else if (c == BLACK) {
-            if (y0==y1) topbits &= bottombits; // same byte !!
+
             buffer[y0] &= ~topbits; // topmost byte
             y0 += 84;           // increment, if several bytes
             while ( y0 < y1) {
@@ -227,7 +236,7 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 			buffer[y1] &= ~bottombits; // last byte
 		}
 		else if (c == INVERT) {
-            if (y0==y1) topbits &= bottombits; // same byte !!
+
             buffer[y0] ^= topbits; // topmost byte
             y0 += 84;           // increment, if several bytes
             while ( y0 < y1) {
@@ -238,6 +247,7 @@ void Miniboi::draw_column(uint8_t x, uint16_t y0, uint16_t y1, uint8_t c) {
 		}
         else if (hatchbit) {
             //buffer[y0] &= ~topbits; // switch off affected bytes
+
             buffer[y0] |= hatchbit & topbits; // topmost byte
             y0 += 84;           // increment, if several bytes
             while ( y0 < y1) {

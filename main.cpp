@@ -128,14 +128,14 @@ void setup() {
     createPolygons();
     polygonRenderer = new SolidPolygonRenderer(camera, view); //remember to delete
 
-    quad[0].x = int2mb(0);
-    quad[0].y = int2mb(0);
+    quad[0].x = int2mb(20);
+    quad[0].y = int2mb(20);
 
-    quad[1].x = int2mb(PW);
-    quad[1].y = int2mb(5);
+    quad[1].x = int2mb(40);
+    quad[1].y = int2mb(10);
 
-    quad[2].x = int2mb(PW+5);
-    quad[2].y = int2mb(PH);
+    quad[2].x = int2mb(60);
+    quad[2].y = int2mb(20);
 
     quad[3].x = int2mb(5);
     quad[3].y = int2mb(PH-5);
@@ -160,12 +160,45 @@ void loop() {
     //render();
     //polygonRenderer->resetCounters();
 
-    for (int k=0;k<4;k++){
+    /*for (int k=0;k<3;k++){
+
+        quad[k].x = int2mb(random(0,83));
+        quad[k].y = int2mb(random(0,47));
+
+    }*/
+    MB.fill(1);
+    //MB.draw_poly(3,&quad[0],random(1,2),random(0,6));
+    MB.draw_poly(3,&quad[0],0,HATCH);
+    //MB.draw_poly(3,&quad[0],1,1);
+  if (EMU.pollB())
+  {
+    for (int k=0;k<3;k++){
         quad[k].x = int2mb(random(0,83));
         quad[k].y = int2mb(random(0,47));
     }
+  }
 
-    MB.draw_poly(4,&quad[0],random(0,2),random(0,6));
+  if (EMU.pollDown())
+  {
+    for (int k=0;k<3;k++) quad[k].y = mbAdd(quad[k].y,int2mb(1));
+  }
+
+  if (EMU.pollUp())
+  {
+    for (int k=0;k<3;k++) quad[k].y = mbSub(quad[k].y,int2mb(1));
+  }
+
+  if (EMU.pollLeft())
+  {
+    for (int k=0;k<3;k++) quad[k].x = mbSub(quad[k].x,int2mb(1));
+  }
+
+  if (EMU.pollRight())
+  {
+    for (int k=0;k<3;k++) quad[k].x = mbAdd(quad[k].x,int2mb(1));
+  }
+
+    MB.delay(100);
 }
 
 

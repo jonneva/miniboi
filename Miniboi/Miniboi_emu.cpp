@@ -12,6 +12,7 @@ sf::Color color1(50, 50, 50); // foreground
 RenderWindow emuWindow{{EMUW, EMUH}, "Miniboi Emulator"};
 sf::View emuScreen(sf::FloatRect(0, 0, 84, 48));
 sf::Event emuEvent;
+sf::Clock myClock;
 
 int random(int a, int b) {
     int r; //Arduino random(a,b) EXCLUDES b !!!

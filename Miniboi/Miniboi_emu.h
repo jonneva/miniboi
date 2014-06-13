@@ -44,4 +44,5 @@ private:
 };
 
 extern Miniboi_emu EMU; // global to make things a little bit easier
+extern sf::Clock myClock; // same for the clock
 #endif

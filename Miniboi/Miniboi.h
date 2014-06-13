@@ -38,6 +38,7 @@ public:
     uint8_t edgeTable2[84]; // ToDo: make optional if not needed
 	char begin();
 	void fill(uint8_t);
+	unsigned long millis();
 	void delay(unsigned int);
 	void set_pixel(uint8_t,uint8_t,char);
 	void draw_line(uint8_t,uint8_t, uint8_t, uint8_t, char);

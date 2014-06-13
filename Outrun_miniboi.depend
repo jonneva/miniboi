@@ -1264,7 +1264,7 @@
 	<SFML/Graphics.hpp>
 	"wrapper.h"
 
-1402532863 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
+1402651567 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	"Miniboi.h"
@@ -1320,7 +1320,7 @@
 	"Vector3D.h"
 	"Transform3D.h"
 
-1402531716 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi3D.h
+1402650763 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi3D.h
 	"Transform3D.h"
 	"Vector3D.h"
 	"Rectangle3D.h"
@@ -1329,6 +1329,7 @@
 	"ViewWindow.h"
 	"Polygonrenderer.h"
 	"Solidpolygonrenderer.h"
+	"Miniboi_math.h"
 
 1402495851 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Solidpolygon3D.h
 	"Vector3D.h"
@@ -1388,4 +1389,16 @@
 	"Solidpolygonrenderer.h"
 	"Solidpolygon3D.h"
 	"Primitives.h"
+
+1402651677 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_math.cpp
+	"Miniboi_math.h"
+
+1402648980 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_math.h
+	"Miniboi_trig.h"
+
+1402648998 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_trig.h
+
+1402648266 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_trig.cpp
+	"Miniboi_math.h"
+	"Miniboi_trig.h"
 

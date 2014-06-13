@@ -132,13 +132,13 @@ void setup() {
     quad[0].y = int2mb(0);
 
     quad[1].x = int2mb(PW);
-    quad[1].y = int2mb(0);
+    quad[1].y = int2mb(5);
 
     quad[2].x = int2mb(PW+5);
     quad[2].y = int2mb(PH);
 
     quad[3].x = int2mb(5);
-    quad[3].y = int2mb(PH);
+    quad[3].y = int2mb(PH-5);
 }
 
 void loop() {
@@ -159,7 +159,7 @@ void loop() {
     //MB.draw_rect(10,0,6,20,-1,HATCH2);
     //render();
     //polygonRenderer->resetCounters();
-    MB.draw_poly(4,&quad[0],0,1);
+    MB.draw_poly(4,&quad[0],1,0);
 }
 
 

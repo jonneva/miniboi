@@ -231,7 +231,7 @@ void Miniboi::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, ch
 	draw_line(x0,y0+h,x0+w,y0+h,c);
 } // end of draw_rect
 
-void Miniboi::draw_poly(uint8_t n, point2D *pnts, uint8_t c, uint8_t fc){
+void Miniboi::draw_poly(uint8_t n, point2D *pnts, char c, char fc){
 // this routine is based on walking the polygon
 // first from left to right, then right to left and
 // storing the y's of the edges along the way into two tables
@@ -247,6 +247,8 @@ void Miniboi::draw_poly(uint8_t n, point2D *pnts, uint8_t c, uint8_t fc){
     uint8_t i;
 
     if (n < 3) return; // not a polygon !
+
+    if (fc != -1) { // if fillcolor is set
 
     xmax = xmin = pnts[0].x; // initialize to point 0 of polygon
 
@@ -306,6 +308,19 @@ void Miniboi::draw_poly(uint8_t n, point2D *pnts, uint8_t c, uint8_t fc){
         draw_column(x1, edgeTable1[x1], edgeTable2[x1], fc);
         x1++;
     } while (x1 < x2);
+
+    } // end of if fill colour c != -1
+
+    /* DRAW EDGES IF EDGE COLOR IS SET */
+
+    if (c!=-1) {
+         for (i = 0; i < n-1; i++)   // iterate through points of polygon
+         {
+            draw_line(round2Scanline(pnts[i].x), round2Scanline(pnts[i].y),round2Scanline(pnts[i+1].x), round2Scanline(pnts[i+1].y),c);
+         }
+         // draw last line to p0
+         draw_line(round2Scanline(pnts[0].x), round2Scanline(pnts[0].y),round2Scanline(pnts[n-1].x), round2Scanline(pnts[n-1].y),c);
+    }
 };
 
 // PRIVATE

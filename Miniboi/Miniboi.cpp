@@ -1,4 +1,5 @@
 #include "Miniboi.h"
+#include "Miniboi_emu.h"
 
 #define swapWT(type, a, b)    \
 {               \
@@ -14,6 +15,35 @@ char Miniboi::begin() {
 
 	return 1;
 } // end of begin
+
+void Miniboi::delay(unsigned int x) {
+	//unsigned long time = millis() + x;
+	EMU.refresh(&buffer[0]);
+	//while(millis() < time) {
+    //    if (pollEvent() == -1) break;
+	//}
+} // end of delay
+
+void Miniboi::fill(uint8_t color) {
+	switch(color) {
+		case BLACK:
+			for (int i = 0; i < 504; i++)
+				buffer[i] = 0;
+			break;
+		case WHITE:
+			for (int i = 0; i < 504; i++)
+				buffer[i] = 0xFF;
+			break;
+        case HATCH:
+			for (int i = 0; i < 504; i++)
+				buffer[i] = 0xAA;
+			break;
+		case INVERT:
+			for (int i = 0; i < 504; i++)
+				buffer[i] = ~buffer[i];
+			break;
+	}
+} // end of fill
 
 void Miniboi::set_pixel(uint8_t x, uint8_t y, char c) {
 	if (x >= 84 || y >= 48)

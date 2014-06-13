@@ -22,6 +22,8 @@ extern int random(int,int);
 using namespace sf;
 
 extern RenderWindow emuWindow;
+extern void Refresh(uint8_t *);
+extern void PollEvent();
 
 class Miniboi_emu {
 public:
@@ -41,4 +43,5 @@ private:
 
 };
 
+extern Miniboi_emu EMU; // global to make things a little bit easier
 #endif

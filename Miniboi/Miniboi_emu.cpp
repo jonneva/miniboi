@@ -21,6 +21,7 @@ int random(int a, int b) {
     return  r;
 }
 
+
 int Miniboi_emu::pollEsc() {
 emuWindow.pollEvent(emuEvent);
     if(emuEvent.type == sf::Event::Closed || Keyboard::isKeyPressed(Keyboard::Key::Escape)) {

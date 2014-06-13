@@ -29,13 +29,16 @@ typedef struct
     mb14 x, y;
 } point2D;
 
+#define clear_screen()	fill(0)
+
 class Miniboi {
 public:
     uint8_t buffer[504]; // Teh screen buffer
     uint8_t edgeTable1[84]; // edge tables for polygon filling
     uint8_t edgeTable2[84]; // ToDo: make optional if not needed
 	char begin();
-	void end();
+	void fill(uint8_t);
+	void delay(unsigned int);
 	void set_pixel(uint8_t,uint8_t,char);
 	void draw_line(uint8_t,uint8_t, uint8_t, uint8_t, char);
     void draw_column(uint8_t, uint16_t, uint16_t, uint8_t);

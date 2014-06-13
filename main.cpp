@@ -159,7 +159,13 @@ void loop() {
     //MB.draw_rect(10,0,6,20,-1,HATCH2);
     //render();
     //polygonRenderer->resetCounters();
-    MB.draw_poly(4,&quad[0],1,0);
+
+    for (int k=0;k<4;k++){
+        quad[k].x = int2mb(random(0,83));
+        quad[k].y = int2mb(random(0,47));
+    }
+
+    MB.draw_poly(4,&quad[0],random(0,2),random(0,6));
 }
 
 

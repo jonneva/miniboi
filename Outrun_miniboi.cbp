@@ -48,6 +48,7 @@
 		<Unit filename="Miniboi/Miniboi3D.h" />
 		<Unit filename="Miniboi/Miniboi_emu.cpp" />
 		<Unit filename="Miniboi/Miniboi_emu.h" />
+		<Unit filename="Miniboi/Miniboi_math.cpp" />
 		<Unit filename="Miniboi/Miniboi_math.h" />
 		<Unit filename="Miniboi/Miniboi_trig.cpp" />
 		<Unit filename="Miniboi/Miniboi_trig.h" />

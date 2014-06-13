@@ -46,7 +46,6 @@ public:
 private:
     void sp(uint8_t,uint8_t,char);
     int  round2Scanline(mb14);
-    void spanColumn(uint8_t, uint8_t, mb14, mb14);
     void walkEdge(uint8_t *, point2D *, point2D *);
 };
 

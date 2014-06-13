@@ -272,48 +272,40 @@ void Miniboi::draw_poly(uint8_t c, uint8_t n, point2D *pnts){
 
     if (x1 == x2) return; // polygon is 100% vertical = DO NOT DRAW !
 
-    // START WALKING LEFT TO RIGHT
+    /* START WALKING LEFT TO RIGHT */
     p1 = xminPoint;     // begins here
     p2 = xminPoint + 1; // towards next point
-    if (p2 >= n) p2 = 0;  // if p2 > number of points, wrap to 0
+    if (p2 >= n) p2 = 0;  // if p2 > number of points, wrap to p0
+
+    do {
+        walkEdge(edgeTable1, &pnts[p1], &pnts[p2]);
+        // then, ready for walking the next edge
+        p1 = p2;        // last right point becomes new left point
+        p2 = p2 + 1;    // next point please !
+        if (p2 >= n) p2 = 0; // again, wrap to p0 if needed
+    } while (p1 != xmaxPoint); //... until we arrive at right
 
 
+    /* START WALKING RIGHT TO LEFT */
+    p1 = xmaxPoint;     // begins here
+    p2 = xmaxPoint + 1; // towards next point
+    if (p2 >= n) p2 = 0;  // if p2 > number of points, wrap to p0
+
+    do {
+        walkEdge(edgeTable1, &pnts[p1], &pnts[p2]);
+        // then, ready for walking the next edge
+        p1 = p2;        // last right point becomes new left point
+        p2 = p2 + 1;    // next point please !
+        if (p2 >= n) p2 = 0; // again, wrap to p0 if needed
+    } while (p1 != xminPoint); //... until we arrive back to left
+
+    /* NOW... DRAW THE COLUMNS TO FILL IN ! */
     do
     {
-        edge(table1, &pnts[pnt1], &pnts[pnt2]);
-
-        pnt1 = pnt2;
-        pnt2 = pnt2 + 1;
-        if (pnt2 >= n)
-        {
-            pnt2 = 0;
-        }
-    } while (pnt1 != imaxy);
-
-    pnt1 = imaxy;
-    pnt2 = imaxy + 1;
-    if (pnt2 >= n)
-    {
-        pnt2 = 0;
-    }
-
-    do
-    {
-        edge(table2, &pnts[pnt1], &pnts[pnt2]);
-
-        pnt1 = pnt2;
-        pnt2 = pnt2 + 1;
-        if (pnt2 >= n)
-        {
-            pnt2 = 0;
-        }
-    } while (pnt1 != iminy);
-
-    do
-    {
-        span(c, iy1, &table1[iy1], &table2[iy1]);
-        iy1++;
-    } while (iy1 < iy2);
+        // x = location to draw AND index to edge table
+        draw_column(x1, edgeTable1[x1], edgeTable2[x1],c);
+        x1++;
+    } while (x1 < x2);
 };
 
 // PRIVATE
@@ -340,20 +332,6 @@ int Miniboi::round2Scanline (mb14 n) {
     return mb2int(n + mbHalf);
 };
 
-// span the column at x given two y edge points
-void Miniboi::spanColumn(uint8_t c, uint8_t x, mb14 p1, mb14 p2)
-{
-    int dy, y1, y2;
-
-    if (p2 < p1) swapWT(mb14 , p1, p2); // make sure p1 is left
-
-    y1 = round2Scanline(p1); // round to closest scanline
-    y2 = round2Scanline(p2); // the return is an integer
-    dy = y2 - y1;            // height of span
-    if (dy == 0) return;    // avoid divide by zero
-
-    do { draw_column(x,y1,y2,c); y1++; } while (y1 < y2);
-}
 
 // walk edge horizontally, storing edge y's along the way
 void Miniboi::walkEdge(uint8_t *edgeTable, point2D *p1, point2D *p2)
@@ -370,13 +348,14 @@ void Miniboi::walkEdge(uint8_t *edgeTable, point2D *p1, point2D *p2)
 
     if (dx == 0) return; // avoid divide by zero
 
-    dx = max(2, dx - 1); // top left included, bottom right excluded
+    // top left included, bottom right excluded
+    dx = (((2) > (dx-1)) ? (2) : (dx-1));
 
     y = p1->y;  // starting y for walk
     dy = mbDiv((p2->y - p1->y), int2mb(dx)); // y increment for walk
 
     do {
-        edgeTable[x] = y;   // store current edge y at index x in table
+        edgeTable[x1] = y;   // store current edge y at index x in table
         y += dy;        // increment y by defined step
         x1++;           // step rightward
     } while(x1 < x2);  // until rightmost point of edge is reached

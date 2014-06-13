@@ -1274,9 +1274,10 @@
 1394844808 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Controllers/Controllers.h
 	"ButtonController.h"
 
-1402528400 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.h
+1402652968 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.h
 	<stdint.h>
 	<stdlib.h>
+	"Miniboi_math.h"
 
 1402528594 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.cpp
 	"Miniboi.h"
@@ -1320,7 +1321,7 @@
 	"Vector3D.h"
 	"Transform3D.h"
 
-1402650763 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi3D.h
+1402652312 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi3D.h
 	"Transform3D.h"
 	"Vector3D.h"
 	"Rectangle3D.h"
@@ -1396,7 +1397,8 @@
 1402648980 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_math.h
 	"Miniboi_trig.h"
 
-1402648998 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_trig.h
+1402651982 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_trig.h
+	"Miniboi_math.h"
 
 1402648266 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_trig.cpp
 	"Miniboi_math.h"

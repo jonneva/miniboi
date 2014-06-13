@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "Miniboi_math.h" // needed for polygon filling
+
+//#define MINIBOI_TRIG // if fixed point trigonometric needed
 
 #define WHITE   1
 #define BLACK   0
@@ -21,7 +24,15 @@
 #define XMAX    83
 #define YMAX    47
 
+typedef struct
+{
+    mb14 x, y;
+} point2D;
 
+typedef struct
+{
+    mb14 y;
+} edgeP;
 
 class Miniboi {
 public:
@@ -33,9 +44,11 @@ public:
     void draw_column(uint8_t, uint16_t, uint16_t, uint8_t);
     void draw_row(uint8_t, uint16_t, uint16_t, uint8_t);
     void draw_rect(uint8_t,uint8_t,uint8_t,uint8_t,char,char);
+    void draw_poly(uint8_t, uint8_t, point2D*);
 
 private:
     void sp(uint8_t,uint8_t,char);
+    int round2scanline(mb14);
 };
 
 #endif

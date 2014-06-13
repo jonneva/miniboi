@@ -1,24 +1,19 @@
 #include "Miniboi.h"
 
+#define swapWT(type, a, b)    \
+{               \
+    type _t_;   \
+    _t_ = a;    \
+    a = b;      \
+    b = _t_;    \
+}
+
+
+// PUBLIC
 char Miniboi::begin() {
 
 	return 1;
 } // end of begin
-
-void Miniboi::sp(uint8_t x, uint8_t y, char c) {
-    if (c==WHITE) {buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7)); return;}
-    if (c==HATCH) {
-        if ((x+y) & 1) {
-                // odd pixels on
-                buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7));
-                } else {
-                // even pixels off
-                buffer[(y >> 3) * 84 + x] &= ~(0x80 >> (y & 7));
-                }
-        return;
-        }
-	buffer[(y >> 3) * 84 + x] &= ~(0x80 >> (y & 7));
-}
 
 void Miniboi::set_pixel(uint8_t x, uint8_t y, char c) {
 	if (x >= 84 || y >= 48)
@@ -236,4 +231,54 @@ void Miniboi::draw_rect(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, char c, ch
 	draw_line(x0,y0+h,x0+w,y0+h,c);
 } // end of draw_rect
 
+void Miniboi::draw_poly(uint8_t c, uint8_t n, point2D *pnts){
 
+};
+
+// PRIVATE
+
+void Miniboi::sp(uint8_t x, uint8_t y, char c) {
+    if (c==WHITE) {buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7)); return;}
+    if (c==HATCH) {
+        if ((x+y) & 1) {
+                // odd pixels on
+                buffer[(y >> 3) * 84 + x] |= (0x80 >> (y & 7));
+                } else {
+                // even pixels off
+                buffer[(y >> 3) * 84 + x] &= ~(0x80 >> (y & 7));
+                }
+        return;
+        }
+	buffer[(y >> 3) * 84 + x] &= ~(0x80 >> (y & 7));
+}
+
+// find the closest scanline, include top&left, discard bottom&right
+int round2scanline (mb14 n) {
+    if (mbFract(n) == mbHalf) n++;
+    return mb2int(n + mbHalf);
+};
+
+void span(uint8_t c, int8_t y, edgeP *p1, edgeP *p2)
+{
+    int idx, ix1, ix2;
+
+    if (p2->y < pt1->y)
+    {
+        exchange(edgeRec *, pt1, pt2);
+    }
+
+    ix1 = adjust(pt1->x);
+    ix2 = adjust(pt2->x);
+    idx = ix2 - ix1;
+
+    if (idx == 0)
+    {
+        return;
+    }
+
+    do
+    {
+        //fb[y][ix1] = c; // WRITE TO BUFFER !
+        ix1++;
+    } while (ix1 < ix2);
+}

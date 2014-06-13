@@ -10,8 +10,6 @@
 #include "Polygonrenderer.h"
 #include "Solidpolygonrenderer.h"
 
-//#define MINIBOI_TRIG
-
 #include "Miniboi_math.h"
 
 #endif // MINIBOI3D_H

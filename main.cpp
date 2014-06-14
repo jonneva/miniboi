@@ -22,6 +22,8 @@ float x = 0.0f, y = 100.0f, z = -500.0f;
 vector<SolidPolygon3D> polys;
 ViewWindow view(0, 0, XMAX, YMAX, DegToRad(75));
 Transform3D camera(x, y, z);
+Transform3D away(0, 0, -1.0f);
+Transform3D turntable();
 PolygonRenderer* polygonRenderer ;
 point2D quad[4];
 
@@ -35,7 +37,7 @@ void createPolygons() {
             Vector3D(200, 0, -1000),
             Vector3D(200, 250, -1000),
             Vector3D(-200, 250, -1000));
-        poly.setColor(HATCH);
+        poly.setFillColor(HATCH);
         polys.push_back(poly);
                 polys.push_back(poly);
         poly = SolidPolygon3D(
@@ -43,21 +45,21 @@ void createPolygons() {
             Vector3D(-200, 250, -1400),
             Vector3D(200, 250, -1400),
             Vector3D(200, 0, -1400));
-        poly.setColor(2);
+        poly.setFillColor(2);
         polys.push_back(poly);
         poly = SolidPolygon3D(
             Vector3D(-200, 0, -1400),
             Vector3D(-200, 0, -1000),
             Vector3D(-200, 250, -1000),
             Vector3D(-200, 250, -1400));
-        poly.setColor(2);
+        poly.setFillColor(2);
         polys.push_back(poly);
         poly = SolidPolygon3D(
             Vector3D(200, 0, -1000),
             Vector3D(200, 0, -1400),
             Vector3D(200, 250, -1400),
             Vector3D(200, 250, -1000));
-        poly.setColor(2);
+        poly.setFillColor(2);
         polys.push_back(poly);
 
         // door and windows
@@ -66,14 +68,14 @@ void createPolygons() {
             Vector3D(75, 0, -1000),
             Vector3D(75, 125, -1000),
             Vector3D(0, 125, -1000));
-        poly.setColor(1);
+        poly.setFillColor(1);
         polys.push_back(poly);
         poly = SolidPolygon3D(
             Vector3D(-150, 150, -1000),
             Vector3D(-100, 150, -1000),
             Vector3D(-100, 200, -1000),
             Vector3D(-150, 200, -1000));
-        poly.setColor(1);
+        poly.setFillColor(1);
         polys.push_back(poly);
 
         // roof
@@ -82,32 +84,36 @@ void createPolygons() {
             Vector3D(200, 250, -1000),
             Vector3D(75, 400, -1200),
             Vector3D(-75, 400, -1200));
-        poly.setColor(1);
+        poly.setFillColor(1);
         polys.push_back(poly);
         poly = SolidPolygon3D(
             Vector3D(-200, 250, -1400),
             Vector3D(-200, 250, -1000),
             Vector3D(-75, 400, -1200));
-        poly.setColor(1);
+        poly.setFillColor(1);
         polys.push_back(poly);
         poly = SolidPolygon3D(
             Vector3D(200, 250, -1400),
             Vector3D(-200, 250, -1400),
             Vector3D(-75, 400, -1200),
             Vector3D(75, 400, -1200));
-        poly.setColor(1);
+        poly.setFillColor(1);
         polys.push_back(poly);
         poly = SolidPolygon3D(
             Vector3D(200, 250, -1000),
             Vector3D(200, 250, -1400),
             Vector3D(75, 400, -1200));
-        poly.setColor(1);
+        poly.setFillColor(1);
         polys.push_back(poly);
 }
 
 
 void render() {
-for (int i=0; i!=polys.size(); ++i) polygonRenderer->draw(&polys[i]);
+for (int i=0; i!=polys.size(); ++i)
+{
+polygonRenderer->draw(&polys[i]);
+polys[i].add(away);
+}
 }
 
 
@@ -135,12 +141,12 @@ void loop() {
   {
     polygonRenderer->getCamera().getLocation().y += distanceChange;
   }
-  if (EMU.pollDown())
+  if (EMU.pollUp())
   {
     polygonRenderer->getCamera().getLocation().x -= distanceChange * polygonRenderer->getCamera().getSinAngleY();
     polygonRenderer->getCamera().getLocation().z -= distanceChange * polygonRenderer->getCamera().getCosAngleY();
   }
-  if (EMU.pollUp())
+  if (EMU.pollDown())
   {
     polygonRenderer->getCamera().getLocation().x += distanceChange * polygonRenderer->getCamera().getSinAngleY();
     polygonRenderer->getCamera().getLocation().z += distanceChange * polygonRenderer->getCamera().getCosAngleY();
@@ -162,7 +168,7 @@ void loop() {
     }
   }
 
-    MB.delay(100);
+    //MB.delay(1);
 }
 
 

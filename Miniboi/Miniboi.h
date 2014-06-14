@@ -53,4 +53,6 @@ private:
     void walkEdge(uint8_t *, point2D *, point2D *);
 };
 
+extern Miniboi MB; // to make life a bit easier in testing
+
 #endif

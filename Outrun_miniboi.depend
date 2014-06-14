@@ -1264,7 +1264,7 @@
 	<SFML/Graphics.hpp>
 	"wrapper.h"
 
-1402690294 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
+1402703576 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/main.cpp
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	"Miniboi.h"
@@ -1274,7 +1274,7 @@
 1394844808 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Controllers/Controllers.h
 	"ButtonController.h"
 
-1402666989 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.h
+1402702747 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi.h
 	<stdint.h>
 	<stdlib.h>
 	"Miniboi_math.h"
@@ -1387,10 +1387,11 @@
 1402531736 /home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Solidpolygonrenderer.h
 	"Polygonrenderer.h"
 
-1402531777 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Solidpolygonrenderer.cpp
+1402702868 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Solidpolygonrenderer.cpp
 	"Solidpolygonrenderer.h"
 	"Solidpolygon3D.h"
 	"Primitives.h"
+	"Miniboi.h"
 
 1402651677 source:/home/jonne/Desktop/SFMLDev/Outrun_miniboi/Miniboi/Miniboi_math.cpp
 	"Miniboi_math.h"

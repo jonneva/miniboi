@@ -1,6 +1,7 @@
 #include "Solidpolygonrenderer.h"
 #include "Solidpolygon3D.h"
 #include "Primitives.h"
+#include "Miniboi.h"
 
 namespace Miniboi3D
 {
@@ -21,7 +22,8 @@ namespace Miniboi3D
             {
                 // TODO: sort out this horrible cast
                 //line_fast(scan.left, y, scan.right, y, (*(SolidPolygon3D*)m_sourcePolygon).getColor());
-                line_horiz(scan.left, scan.right, y, (*(SolidPolygon3D*)m_sourcePolygon).getColor());
+                //line_horiz(scan.left, scan.right, y, (*(SolidPolygon3D*)m_sourcePolygon).getColor());
+                MB.draw_row(y,scan.left, scan.right, (*(SolidPolygon3D*)m_sourcePolygon).getColor());
             }
             y++;
         }

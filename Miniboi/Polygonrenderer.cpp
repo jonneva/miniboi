@@ -37,8 +37,8 @@ namespace Miniboi3D
         {
             m_numFacing++;
             m_sourcePolygon = poly; // save the source poly in case data is needed later
-            m_destPolygon = *poly;
-            m_destPolygon.subtract(m_camera);
+            m_destPolygon = *poly; // point dest_poly to the polygon
+            m_destPolygon.subtract(m_camera); // substract camera distance from polygon = transform in world coords
             bool visible = m_destPolygon.clip(-1.0f);
             if (visible)
             {

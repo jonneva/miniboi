@@ -182,20 +182,20 @@ bool Polygon3D::clip(float clipZ)
     // insert vertices so all edges are either completely
     // in front or behind the clip plane
     for (int i=0; i != m_numVertices; i++) {
-        int next = (i + 1) % m_numVertices;
+        int next = (i + 1) % m_numVertices; // wrap to 0, should be replaced by if (=faster!)
         Vector3D v1(m_vec3DArray[i]);
         Vector3D v2(m_vec3DArray[next]);
 
         if (v1.z < clipZ)
         {
-            isCompletelyHidden = false;
+            isCompletelyHidden = false; //
         }
         // ensure v1.z < v2.z
         if (v1.z > v2.z)
         {
             std::swap(v1, v2);
         }
-        if (v1.z < clipZ && v2.z > clipZ)
+        if (v1.z < clipZ && v2.z > clipZ) //edge thru clip plane
         {
             float scale = (clipZ - v1.z) / (v2.z - v1.z);
             insertVertex(next,

@@ -15,7 +15,9 @@ using namespace Miniboi3D;
 
 Miniboi MB;
 
+//float x = 0.0f, y = 100.0f, z = -500.0f;
 float x = 0.0f, y = 100.0f, z = -500.0f;
+
 
 vector<SolidPolygon3D> polys;
 ViewWindow view(0, 0, XMAX, YMAX, DegToRad(75));
@@ -145,11 +147,19 @@ void loop() {
   }
   if (EMU.pollLeft())
   {
+    if (EMU.pollC()) {
+    polygonRenderer->getCamera().getLocation().x -= distanceChange;
+    } else {
     polygonRenderer->getCamera().rotateAngleY(angleChange);
+    }
   }
   if (EMU.pollRight())
   {
+    if (EMU.pollC()) {
+    polygonRenderer->getCamera().getLocation().x += distanceChange;
+    } else {
     polygonRenderer->getCamera().rotateAngleY(-angleChange);
+    }
   }
 
     MB.delay(100);
